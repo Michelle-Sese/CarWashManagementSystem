@@ -1,9 +1,8 @@
 package controller;
 
-import database.HibernateHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import models.Department;
+import database.HibernateHelper;
 import models.Services;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -14,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 @WebServlet(urlPatterns = {"/services/create"})
 public class ServicesCreate extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         boolean servicesSaved = false;
         String amount = request.getParameter("amount");
         String time = request.getParameter("time");
