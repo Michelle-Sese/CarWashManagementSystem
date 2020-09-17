@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Klean car wash - Accounts</title>
+    <title>Klean car wash - serviceform</title>
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
@@ -72,74 +72,35 @@
     <div id="layoutSidenav_content">
 
         <main>
-            <div class="container-fluid">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table mr-1"></i>Accounts Table
-                        <a href="./accountsform.html" class="btn btn-sm btn-primary float-right">Create</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-2 col-lg-2"></div>
-                        <div class="col-md-8 col-lg-8">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                    <tr>
-                                        <th>Expenditure</th>
-                                        <th>Month</th>
-                                        <th>Revenue</th>
-                                        <th>Year</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Expenditure 1</td>
-                                        <td>Jan</td>
-                                        <td>KES 610000.00</td>
-                                        <td>2020</td>
-                                        <td><a href="#edit" class="btn btn-sm btn-primary">edit</a> <a href="javascript:void(0)" class="btn btn-sm btn-danger">delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Expenditure 2</td>
-                                        <td>Jan</td>
-                                        <td>KES 610000.00</td>
-                                        <td>2020</td>
-                                        <td><a href="#edit" class="btn btn-sm btn-primary">edit</a> <a href="javascript:void(0)" class="btn btn-sm btn-danger">delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Expenditure 3</td>
-                                        <td>Jan</td>
-                                        <td>KES 610000.00</td>
-                                        <td>2020</td>
-                                        <td><a href="#edit" class="btn btn-sm btn-primary">edit</a> <a href="javascript:void(0)" class="btn btn-sm btn-danger">delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Expenditure 4</td>
-                                        <td>Jan</td>
-                                        <td>KES 610000.00</td>
-                                        <td>2020</td>
-                                        <td><a href="#edit" class="btn btn-sm btn-primary">edit</a> <a href="javascript:void(0)" class="btn btn-sm btn-danger">delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Expenditure 5</td>
-                                        <td>Jan</td>
-                                        <td>KES 610000.00</td>
-                                        <td>2020</td>
-                                        <td><a href="#edit" class="btn btn-sm btn-primary">edit</a> <a href="javascript:void(0)" class="btn btn-sm btn-danger">delete</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Create service_type</h3></div>
+                            <div class="card-body">
+                                <form id="service-form">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="Id">Id</label>
+                                        <input class="form-control py-4" name="id" id="Id" type="text"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="Name">Name</label>
+                                        <input class="form-control py-4" name="name" id="Name" type="text"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="small mb-1" >Email</label>
+                                        <input class="form-control py-4" name="email" id="email" type="email"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="small mb-1" >Password</label>
+                                        <input class="form-control py-4" name="password" id="password" type="password"/>
+                                    </div>
+                                    <div class="form-group mt-4 mb-0">
+                                        <button id="service-btn" class="btn btn-primary btn-block">add service_type</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="col-md-2 col-lg-2"></div>
                     </div>
                 </div>
             </div>
@@ -168,6 +129,30 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="assets/demo/datatables-demo.js"></script>
+<script>
+    $(function(){
+        $('#service-btn').click(function(e){
+            e.preventDefault();
+            let form = $('#service-form');
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/CarWashManagementSystem/users',
+                data: form.serialize(),
+                dataType: 'json',
+                success: function(data){
+                    if(data.serviceCreated){
+                        form.trigger('reset');
+                       alert(data.msg)
+                    }else
+                        alert(data.msg);
+                },
+                error: function(data){
+                    alert('request not sent');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
 

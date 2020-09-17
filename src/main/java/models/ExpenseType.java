@@ -15,6 +15,28 @@ public class ExpenseType {
     @Column(columnDefinition = "VARCHAR(24)")
     private String name;
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Column(name="email", columnDefinition = "VARCHAR(24)")
+    private  String email;
+
+    @Column(name="password", columnDefinition = "VARCHAR(24)")
+    private  String password;
+
     @OneToMany(mappedBy = "expense")
     private List<Expenses> expenses = new ArrayList<Expenses>();
 

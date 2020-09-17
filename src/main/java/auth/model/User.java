@@ -1,18 +1,19 @@
-package login;
+package auth.model;
 
-
-import login.BaseEntity;
+import base.BaseEntity;
 
 import javax.persistence.*;
 
 @NamedQueries({
-    @NamedQuery(name = User.USER_FIND_BY_EMAIL_PWD, query = "SELECT u FROM User u WHERE u.email=:email and u.password=:pwd")
+        @NamedQuery(name = User.USER_FIND_BY_EMAIL_PWD, query = "SELECT u FROM User u WHERE u.email=:email and u.password=:pwd")
 })
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
 
     @Transient
+
+
     public static final String USER_FIND_BY_EMAIL_PWD = "User.findByEmailPwd";
 
     @Column
@@ -58,5 +59,4 @@ public class User extends BaseEntity {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
 }
