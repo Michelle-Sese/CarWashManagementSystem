@@ -20,32 +20,29 @@ public class ExpensesBean {
     /**
      * save new expenses
      * @param amount
-     * @param email
-     * @param password
      * @param type_id
      * @throws Exception
      */
-    public void create(String amount, String email, String password, String type_id) throws Exception{
+    public void create(String amount, String type_id) throws Exception{
 
-        int expensestype_id = Integer.parseInt(type_id);
+        int expenseTypeId = Integer.parseInt(type_id);
+        double expenseAmount=Double.parseDouble(amount);
 
         try {
-            this.expenses.setAmount(amount);
-            this.expenses.setEmail(email);
-            this.expenses.setPassword(password);
+            this.expenses.setAmount(expenseAmount);
 
-            ExpenseType expenseType = this.em.getReference(ExpenseType.class, expensestype_id);
+            ExpenseType expenseType = this.em.getReference(ExpenseType.class, expenseTypeId);
             this.expenses.setExpense(expenseType);
 
             this.em.merge(this.expenses);
         }catch (EntityExistsException ex){
-            throw new Exception("The entity user already exists");
+            throw new Exception(ex.getMessage());
         }catch(IllegalArgumentException ex){
-            throw new Exception("The instance expenses is not an entity");
+            throw new Exception(ex.getMessage());
         }catch(TransactionalException ex){
-            throw new Exception("There is no transaction for this entity manager");
+            throw new Exception(ex.getMessage());
         }catch (EntityNotFoundException ex){
-            throw new Exception("User expenses not found");
+            throw new Exception(ex.getMessage());
         }
     }
 }

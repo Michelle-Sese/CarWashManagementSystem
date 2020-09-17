@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/expenses")
+@WebServlet("/expense")
 public class ExpenseAction extends HttpServlet {
 
     @EJB
@@ -24,12 +24,10 @@ public class ExpenseAction extends HttpServlet {
         boolean expensetypeCreated = true;
 
         String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
 
 
         try {
-            this.expenseTypeBean.create(name, email, password );
+            this.expenseTypeBean.create(name );
             msg = "expensetype created";
         }catch (Exception ex){
             ex.printStackTrace();

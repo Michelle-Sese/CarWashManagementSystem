@@ -41,16 +41,12 @@ public class StaffBean {
 
             this.em.merge(this.staff);
         }catch (EntityExistsException ex){
-//            throw new Exception("The entity user already exists");
             throw new Exception(ex.getMessage());
         }catch(IllegalArgumentException ex){
-//            throw new Exception("The instance staff is not an entity");
             throw new Exception(ex.getMessage());
         }catch(TransactionalException ex){
-//            throw new Exception("There is no transaction for this entity manager");
             throw new Exception(ex.getMessage());
         }catch (EntityNotFoundException ex){
-//            throw new Exception("User dept not found");
             throw new Exception(ex.getMessage());
         }
     }

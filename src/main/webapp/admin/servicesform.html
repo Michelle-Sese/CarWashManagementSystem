@@ -80,20 +80,16 @@
                                     <div class="card-body">
                                         <form id="services-form">
                                             <div class="form-group">
-                                                <label class="small mb-1" for="TypeId">TypeId</label>
-                                                <input class="form-control py-4" name="typeid" id="TypeId" type="text"/>
+                                                <label class="small mb-1" for="Type_Id">Type_Id</label>
+                                                <input class="form-control py-4" name="type_id" id="Type_Id" type="text"/>
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="Amount">Amount</label>
                                                 <input class="form-control py-4" name="amount" id="Amount" type="text"/>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="small mb-1" >Email</label>
-                                                <input class="form-control py-4" name="email" id="email" type="email"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="small mb-1" >Password</label>
-                                                <input class="form-control py-4" name="password" id="password" type="password"/>
+                                            <div>
+                                                <label class="small mb-1" for="ServiceTime">ServiceTime</label>
+                                                <input class="form-control py-4" name="servicetime" id="ServiceTime" type="datetime-local"/>
                                             </div>
                                             <div class="form-group mt-4 mb-0">
                                                 <button id="services-btn" class="btn btn-primary btn-block">add services</button>
@@ -136,7 +132,7 @@
             let form = $('#services-form');
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:8080/CarWashManagementSystem/users',
+                url: 'http://localhost:8080/CarWashManagementSystem/services',
                 data: form.serialize(),
                 dataType: 'json',
                 success: function(data){

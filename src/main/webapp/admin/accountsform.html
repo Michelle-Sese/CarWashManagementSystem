@@ -89,14 +89,6 @@
                                         <input class="form-control py-4" name="expenditure" id="Expenditure" type="text"/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="small mb-1" >Email</label>
-                                        <input class="form-control py-4" name="email" id="email" type="email"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="small mb-1" >Password</label>
-                                        <input class="form-control py-4" name="password" id="password" type="password"/>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="small mb-1" for="Revenue">Revenue</label>
                                         <input class="form-control py-4" name="revenue" id="Revenue" type="text"/>
                                     </div>
@@ -141,7 +133,7 @@
             let form = $('#accounts-form');
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:8080/CarWashManagementSystem/users',
+                url: 'http://localhost:8080/CarWashManagementSystem/accounts',
                 data: form.serialize(),
                 dataType: 'json',
                 success: function(data){

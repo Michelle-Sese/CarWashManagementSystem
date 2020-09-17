@@ -10,29 +10,7 @@ public class Expenses {
     private int id;
 
     @Column(columnDefinition = "DECIMAL(10,2)")
-    private String amount;
-
-    @Column(name="email", columnDefinition = "VARCHAR(24)")
-    private  String email;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Column(name="password", columnDefinition = "VARCHAR(24)")
-    private  String password;
+    private double amount;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="type_id", nullable = false, referencedColumnName = "id")
@@ -46,11 +24,11 @@ public class Expenses {
         this.id = id;
     }
 
-    public String getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

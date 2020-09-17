@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/serviceaction")
+@WebServlet("/service")
 public class ServiceAction extends HttpServlet {
 
     @EJB
@@ -24,12 +24,9 @@ public class ServiceAction extends HttpServlet {
         boolean serviceCreated = true;
 
         String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-
 
         try {
-            this.serviceBean.create(name, email, password );
+            this.serviceBean.create(name);
             msg = "service created";
         }catch (Exception ex){
             ex.printStackTrace();

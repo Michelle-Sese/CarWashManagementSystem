@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/expenseaction")
+@WebServlet("/expenses")
 public class ExpensesAction extends HttpServlet {
 
     @EJB
@@ -26,12 +26,10 @@ public class ExpensesAction extends HttpServlet {
         boolean expensesCreated = true;
 
         String amount = request.getParameter("amount");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
         String type_id = request.getParameter("type_id");
 
         try {
-            this.expensesBean.create(amount, email, password, type_id);
+            this.expensesBean.create(amount, type_id);
             msg = "expenses created";
         }catch (Exception ex){
             ex.printStackTrace();

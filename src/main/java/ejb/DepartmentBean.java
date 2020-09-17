@@ -26,7 +26,9 @@ public class DepartmentBean {
 
         try {
             this.department.setName(name);
+
             this.em.merge(this.department);
+
         }catch (EntityExistsException ex){
             throw new Exception("The entity department already exists");
         }catch(IllegalArgumentException ex){
