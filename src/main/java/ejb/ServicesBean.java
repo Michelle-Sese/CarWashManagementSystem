@@ -29,6 +29,7 @@ public class ServicesBean {
         int servicesType = Integer.parseInt(type_id);
         double expenseAmount=Double.parseDouble(amount);
 
+
         // Format service time as yyyy-MM-dd HH:mm:ss
         String serviceDateTime = "2020-09-17T17:42";
         String[] parts = serviceDateTime.split("T");
@@ -39,7 +40,6 @@ public class ServicesBean {
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date date = simpleDateFormat.parse(newServiceDateTime);
-
         try {
             this.services.setAmount(expenseAmount);
             this.services.setTimeOfService(date);

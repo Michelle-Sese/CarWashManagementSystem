@@ -12,12 +12,6 @@ import java.util.Date;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="month", columnDefinition = "VARCHAR(24)")
-    private String Month;
-
-    @Column(name="year", columnDefinition = "INT(11)")
-    private String Year;
-
     @Column(name="expenditure", columnDefinition = "INT(11)")
     private String  Expenditure;
 
@@ -25,16 +19,17 @@ import java.util.Date;
     @Column(name="revenue", columnDefinition = "INT(11)")
     private String  Revenue;
 
-    @Column(name = "date_of_accounts", nullable = false, columnDefinition = "DATE")
-    @Temporal(value = TemporalType.DATE)
-    private Date DateOfAccounts;
 
-    public Date getDateOfAccounts() {
-        return DateOfAccounts;
+    @Column(name = "time_of_accounts", nullable = false, columnDefinition = "DATETIME")
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date timeOfaccounts;
+
+    public Date getTimeOfaccounts() {
+        return timeOfaccounts;
     }
 
-    public void setDateOfAccounts(Date dateOfAccounts) {
-        DateOfAccounts = dateOfAccounts;
+    public void setTimeOfaccounts(Date timeOfaccounts) {
+        this.timeOfaccounts = timeOfaccounts;
     }
 
     public Accounts() { }
@@ -46,22 +41,6 @@ import java.util.Date;
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getMonth() {
-        return Month;
-    }
-
-    public void setMonth(String month) {
-        Month = month;
-    }
-
-    public String getYear() {
-        return Year;
-    }
-
-    public void setYear(String year) {
-        Year = year;
     }
 
     public String getExpenditure() {

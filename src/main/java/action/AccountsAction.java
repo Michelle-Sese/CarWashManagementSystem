@@ -25,13 +25,13 @@ public class AccountsAction extends HttpServlet {
         String msg = "";
         boolean accountsCreated = true;
 
-        String month = request.getParameter("month");
-        String year = request.getParameter("year");
+
         String expenditure = request.getParameter("expenditure");
         String revenue = request.getParameter("revenue");
 
+
         try {
-            this.accountsBean.create(month, year, expenditure, revenue);
+            this.accountsBean.create(expenditure, revenue);
             msg = "accounts created";
         }catch (Exception ex){
             ex.printStackTrace();

@@ -28,22 +28,22 @@ public class AccountsBean {
      */
     public void create( String expenditure, String revenue) throws Exception{
 
+        // Format service time as yyyy-MM-dd HH:mm:ss
+        String accountsDateTime = "2020-09-17T17:42";
+        String[] parts = accountsDateTime.split("T");
+        String  accountsDate = parts[0];
+        String accountsTime = parts[1] + ":00";
+        String newAccountsDateTime = accountsDate+" "+accountsTime;
 
-        String accountsMonthYear = "18-09-2020";
-        String[] parts = accountsMonthYear.split("T");
-        String  serviceMonth = parts[0];
-        String serviceYear = parts[1];
-        String newaccountsMonthYear= serviceMonth+" "+serviceYear;
-
-        String pattern = "dd-MM-YYYY";
+        String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        Date date = simpleDateFormat.parse(newaccountsMonthYear);
+        Date date = simpleDateFormat.parse(newAccountsDateTime);
 
 
         try {
             this.accounts.setExpenditure(expenditure);
             this.accounts.setRevenue(revenue);
-            this.accounts.setDateOfAccounts(date);
+            this.accounts.setTimeOfaccounts(date);
 
 
             this.em.merge(this.accounts);
