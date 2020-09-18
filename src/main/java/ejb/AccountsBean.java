@@ -8,6 +8,8 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.transaction.TransactionalException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Stateless
 @Remote
@@ -22,18 +24,26 @@ public class AccountsBean {
      * save new accounts
      * @param expenditure
      * @param revenue
-     * @param year
      * @throws Exception
      */
-    public void create(String month, String year, String expenditure, String revenue) throws Exception{
-//        String [] dateParts = date.split(".");
-//        String month = dateParts[1];
-//        String year = dateParts[2];
+    public void create( String expenditure, String revenue) throws Exception{
+
+
+        String accountsMonthYear = "18-09-2020";
+        String[] parts = accountsMonthYear.split("T");
+        String  serviceMonth = parts[0];
+        String serviceYear = parts[1];
+        String newaccountsMonthYear= serviceMonth+" "+serviceYear;
+
+        String pattern = "dd-MM-YYYY";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = simpleDateFormat.parse(newaccountsMonthYear);
+
+
         try {
-            this.accounts.setMonth(month);
-            this.accounts.setYear(year);
             this.accounts.setExpenditure(expenditure);
             this.accounts.setRevenue(revenue);
+            this.accounts.setDateOfAccounts(date);
 
 
             this.em.merge(this.accounts);

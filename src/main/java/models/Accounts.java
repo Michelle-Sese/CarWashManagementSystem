@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -23,6 +24,18 @@ import javax.persistence.*;
 
     @Column(name="revenue", columnDefinition = "INT(11)")
     private String  Revenue;
+
+    @Column(name = "date_of_accounts", nullable = false, columnDefinition = "DATE")
+    @Temporal(value = TemporalType.DATE)
+    private Date DateOfAccounts;
+
+    public Date getDateOfAccounts() {
+        return DateOfAccounts;
+    }
+
+    public void setDateOfAccounts(Date dateOfAccounts) {
+        DateOfAccounts = dateOfAccounts;
+    }
 
     public Accounts() { }
 
