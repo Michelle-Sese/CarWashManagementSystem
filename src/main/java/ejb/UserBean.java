@@ -1,6 +1,7 @@
 package ejb;
 
 import auth.model.User;
+import models.Accounts;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.Remote;
@@ -49,5 +50,34 @@ public class UserBean {
 
         return users.get(0);
 
+    }
+
+    //Update
+    public User update(User user) throws Exception {
+
+        if (user == null)
+            throw new Exception("No user details");
+
+        if (StringUtils.isBlank(user.getEmail()) || StringUtils.isBlank(user.getPassword()))
+            throw new Exception("Invalid user details!!");
+
+        if (user.getId() == 0 && StringUtils.isBlank(user.getConfirmPassword()))
+            throw new Exception("Please provide confirm password!!");
+
+        if (user.getId() == 0 && !user.getPassword().equals(user.getConfirmPassword()))
+            throw new Exception("Password and confirm password do not match");
+
+        return em.merge(user);
+    }
+
+
+
+
+    //Delete
+    public void delete(int userId) throws Exception{
+        if (userId == 0)
+            throw new Exception("Invalid user Id..");
+
+        em.remove(em.find(Accounts.class, userId));
     }
 }

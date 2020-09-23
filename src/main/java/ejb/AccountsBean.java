@@ -3,22 +3,31 @@ package ejb;
 import models.Accounts;
 import models.Department;
 import models.Staff;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.transaction.TransactionalException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Stateless
 @Remote
-public class AccountsBean {
+public class AccountsBean<rowsUpdated> {
 
     @PersistenceContext
     private EntityManager em;
 
     Accounts accounts = new Accounts();
+
+    public AccountsBean() throws SQLException {
+    }
 
     /**
      * save new accounts
@@ -26,6 +35,9 @@ public class AccountsBean {
      * @param revenue
      * @throws Exception
      */
+
+    //create
+
     public void create( String expenditure, String revenue) throws Exception{
 
         // Format service time as yyyy-MM-dd HH:mm:ss
@@ -57,4 +69,73 @@ public class AccountsBean {
             throw new Exception(ex.getMessage());
         }
     }
+
+    //Load
+    public Accounts load(int accountsId) throws Exception{
+        if (accountsId == 0)
+            return new Accounts();
+
+        Accounts accounts= em.find(Accounts.class, accountsId);
+
+        if (accounts == null)
+            return new Accounts();
+
+        return accounts;
+
+    }
+
+    // Read
+
+    @SuppressWarnings({"unchecked"})
+    public List<Accounts> list(Accounts filter) throws Exception{
+        String hql = "SELECT a FROM Accounts a WHERE a.id is not null";
+
+        if (filter != null){
+
+            if (StringUtils.isNotBlank(String.valueOf(filter.getId())))
+                hql += " AND i.idNo like '%" + StringUtils.trim(String.valueOf(filter.getId())) + "%'";
+
+            if (StringUtils.isNotBlank(filter.getExpenditure()))
+                hql += " AND i.Expenditure like '%" + StringUtils.trim(filter.getExpenditure()) + "%'";
+        }
+
+        return em.createQuery(hql).getResultList();
+    }
+
+
+
+    //Update
+    public Accounts editEvent(Accounts accounts, int accountsId) throws Exception {
+        if (accountsId == 0)
+            throw new Exception();
+
+        this.accounts = this.findAccounts(accountsId);
+        if (accounts == null)
+            throw new Exception();
+
+        return em.merge(accounts);
+    }
+
+    public Accounts findAccounts(int accountsId) throws Exception{
+        if (accountsId == 0)
+            throw new Exception();
+
+        this.accounts = em.find(Accounts.class, accountsId);
+
+        if (accounts == null)
+            throw new Exception();
+
+        return accounts;
+    }
+
+
+
+ // Delete
+    public void delete(int accountsId) throws Exception{
+        if (accountsId == 0)
+            throw new Exception("Invalid Accounts Id..");
+
+        em.remove(em.find(Accounts.class, accountsId));
+    }
+
 }

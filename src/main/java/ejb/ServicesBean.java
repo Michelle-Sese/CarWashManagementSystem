@@ -1,6 +1,8 @@
 package ejb;
+import models.Accounts;
 import models.ServiceType;
 import models.Services;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -8,6 +10,7 @@ import javax.persistence.*;
 import javax.transaction.TransactionalException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Stateless
 @Remote
@@ -58,4 +61,52 @@ public class ServicesBean {
             throw new Exception(ex.getMessage());
         }
     }
+
+    // Read
+
+    @SuppressWarnings({"unchecked"})
+    public List<Services> list(Services filter) throws Exception{
+        String hql = "SELECT a FROM Services a WHERE a.id is not null";
+
+        if (filter != null){
+
+            if (StringUtils.isNotBlank(String.valueOf(filter.getId())))
+                hql += " AND i.idNo like '%" + StringUtils.trim(String.valueOf(filter.getId())) + "%'";
+
+            if (StringUtils.isNotBlank(String.valueOf(filter.getService())))
+                hql += " AND i.Expenditure like '%" + StringUtils.trim(String.valueOf(filter.getService())) + "%'";
+        }
+
+        return em.createQuery(hql).getResultList();
+    }
+
+
+
+    // Delete
+    public void delete(int accountsId) throws Exception{
+        if (accountsId == 0)
+            throw new Exception("Invalid Accounts Id..");
+
+        em.remove(em.find(Accounts.class, accountsId));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
